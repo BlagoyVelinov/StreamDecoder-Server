@@ -1,0 +1,10 @@
+spring:
+  application:
+        name: video_player_be
+
+server:
+  port: 8082
+
+app:
+  streams-folder: ./streams
+  ffmpeg-path: ffmpeg
