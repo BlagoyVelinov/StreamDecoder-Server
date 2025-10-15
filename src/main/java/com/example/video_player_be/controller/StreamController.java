@@ -4,12 +4,13 @@ import com.example.video_player_be.service.StreamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/stream")
@@ -25,9 +26,11 @@ public class StreamController {
     public ResponseEntity<?> startStream(@RequestParam String rtspUrl) {
         try {
             String streamId = streamService.startStream(rtspUrl);
-            String streamUrl = "http://localhost:" + port + "/streams/" + streamId + "/index.m3u8";
-
-            System.out.println("===============" + streamUrl);
+            String streamUrl = ServletUriComponentsBuilder
+                    .fromCurrentContextPath()
+                    .path("/streams/")
+                    .path(streamId + "/index.m3u8")
+                    .toUriString();
 
             return ResponseEntity.ok(streamUrl);
         } catch (IOException e) {

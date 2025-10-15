@@ -386,3 +386,24 @@ Benefits:
 ✅ Reusability - Easy to use in other test classes
 ✅ Type safety - Compile-time checking for typos
 The tests are now more maintainable and follow best practices for test organization!
+
+ # Me: How to dynamically get the client host, depending on whether it is a local machine, docker container or remote server
+
+## Dynamically determining the base URL
+### 🧩 Using ServletUriComponentsBuilder
+
+ - This is the cleanest option because it automatically gets the current host from the request:
+
+    String streamUrl = ServletUriComponentsBuilder
+       .fromCurrentContextPath()
+       .path("/streams/")
+       .path(streamId + "/index.m3u8")
+       .toUriString();
+
+### 👉 This will generate:
+
+locally → http://localhost:8080/streams/...
+
+on server → https://myapp.com/streams/...
+
+in container (if accessible from outside) → corresponding public host.
