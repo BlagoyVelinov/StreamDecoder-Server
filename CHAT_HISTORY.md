@@ -407,3 +407,44 @@ locally → http://localhost:8080/streams/...
 on server → https://myapp.com/streams/...
 
 in container (if accessible from outside) → corresponding public host.
+
+
+ # Me: Hi, I need a method to delete a stream by id, as well as get the list of all streams
+
+
+### Summary
+Service Layer (
+StreamService.java
+)
+Added three new methods:
+
+deleteStream(String streamId)
+1. - Deletes a stream by ID:
+Stops the FFmpeg process if it's still running
+Removes the process from the active streams map
+Deletes the stream directory and all its contents
+Throws an exception if the stream doesn't exist
+getAllStreams()
+2. - Returns a list of all stream IDs:
+Scans the streams folder for all subdirectories
+Returns the directory names (which are the stream IDs)
+Returns an empty list if the folder doesn't exist
+deleteDirectory(File directory)
+3. - Helper method to recursively delete directories
+Controller Layer (
+StreamController.java
+)
+Added two new endpoints:
+
+ - DELETE /api/stream/delete/{id} - Deletes a stream by ID:
+Returns success message on successful deletion
+Returns error message if deletion fails
+ - GET /api/stream/all - Gets all streams:
+Returns a list of all stream IDs
+Returns 200 OK with the list
+Key Features
+Process tracking: Active FFmpeg processes are now tracked in a ConcurrentHashMap
+Proper cleanup: When a stream is deleted, both the process and files are cleaned up
+Error handling: Appropriate exceptions are thrown when streams don't exist
+Thread-safe: Uses ConcurrentHashMap for managing active streams
+The lint warnings in WebConfig.java are unrelated to our changes and can be addressed separately if needed.
