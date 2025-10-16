@@ -3,9 +3,13 @@ spring:
         name: video_player_be
 
 server:
-  port: 8082
+  port: ${PORT:8082}
   forward-headers-strategy: framework
 
 app:
-  streams-folder: ./streams
-  ffmpeg-path: ffmpeg
+  streams-folder: ${STREAMS_FOLDER:./streams}
+  ffmpeg-path: ${FFMPEG_PATH:ffmpeg}
+
+logging:
+  level:
+    root: INFO
