@@ -6,7 +6,7 @@ WORKDIR /app
 
 RUN mkdir -p /app/streams && chmod 777 /app/streams
 
-COPY build/libs/video_player_be-*.jar app.jar
+COPY build/libs/app.jar app.jar
 
 EXPOSE 8082
 
