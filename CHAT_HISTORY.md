@@ -448,3 +448,41 @@ Proper cleanup: When a stream is deleted, both the process and files are cleaned
 Error handling: Appropriate exceptions are thrown when streams don't exist
 Thread-safe: Uses ConcurrentHashMap for managing active streams
 The lint warnings in WebConfig.java are unrelated to our changes and can be addressed separately if needed.
+
+
+# Me: Can you describe to me in the README.md file what this server does, how to work with it, adding the endpoints and a short description for each. Also, that it can be tested with a docker container that can be pulled with: docker pull blagoyvelinov/stream_server, and started with this command: docker run -d -p 8082:8082 --name stream_service_container blagoyvelinov/stream_server
+
+ - I'll update the README.md file with a comprehensive description of the server, its endpoints, and Docker instructions.
+
+Now I'll create a comprehensive README with all the information:
+
+README.md
++201
+Perfect! I've created a comprehensive README.md file that includes:
+
+What I Added:
+Overview Section
+Clear description of what the server does
+Key features: RTSP to HLS conversion, multi-stream management, automatic cleanup
+API Endpoints Documentation
+All three endpoints with detailed information:
+
+POST /api/stream/start - Start a new stream
+Parameters, example requests/responses, and description
+DELETE /api/stream/delete/{id} - Delete a stream
+Path parameters, example requests/responses, and description
+GET /api/stream/all - Get all streams
+Example requests/responses, and description
+Docker Deployment Section
+Pull command: docker pull blagoyvelinov/stream_server
+Run command: docker run -d -p 8082:8082 --name stream_service_container blagoyvelinov/stream_server
+Additional Docker commands (stop, remove, logs)
+Explanation of Docker flags
+Additional Sections
+Prerequisites
+Local development setup
+Usage examples with curl commands
+Technical details
+Configuration properties
+Important notes
+The README is now complete and provides everything needed to understand, deploy, and use the streaming server!
